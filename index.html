@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+    <link rel="manifest" href="/site.webmanifest">
+    <title>Siriusly XM</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="https://cdn.jsdelivr.net/npm/hls.js@latest"></script>
+</head>
+<body>
+    <header>
+        <h1>Siriusly XM</h1>
+    </header>
+
+    <main id="channel-container">
+        </main>
+
+    <footer id="player">
+        <div id="player-info">
+            <img id="player-logo" src="https://placehold.co/80x80?text=SXM" alt="Album or Channel Art">
+            <div id="player-text">
+                <span id="channel-title"></span>
+                <span id="player-title">Select a channel to play</span>
+                <span id="player-artist"></span>
+            </div>
+        </div>
+
+        <div id="player-controls">
+            <button id="play-pause-btn">
+                </button>
+        </div>
+
+        <audio id="audio-player"></audio>
+    </footer>
+
+    <script src="app.js"></script>
+</body>
+</html>
