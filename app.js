@@ -66,7 +66,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 album: channel.title || '',
                 artwork: [
                     {
-                        src: song.images?.tile?.aspect_1x1?.preferredImage?.url || channel.logo,
+                        src: albumArtUrl ? `${IMAGE_BASE_URL}${base64}`: channel.logo,
                         sizes: '300x300',
                         type: 'image/jpeg'
                     }
