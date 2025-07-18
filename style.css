@@ -12,32 +12,42 @@ body {
     background-color: var(--primary-bg);
     color: var(--text-primary);
     margin: 0;
-    padding-bottom: 100px; /* Space for the fixed player */
+    padding-bottom: 100px;
 }
 
-/* Header, Main, Genre, and Card styles remain the same... */
-header, main#channel-container, .genre-section, .channel-grid, .channel-card, .error {
-    /* (Existing styles from previous step) */
-}
 header {
     background-color: var(--secondary-bg);
-    padding: 1rem 2rem;
+    padding: 2px;
     border-bottom: 1px solid #282828;
+    text-align: center; 
 }
+
 main#channel-container {
-    padding: 1.5rem;
+    padding: 0 1.5rem;
 }
+
 .genre-section h2 {
     font-size: 1.8rem;
     border-bottom: 2px solid var(--accent-color);
     padding-bottom: 0.5rem;
     margin-bottom: 1.5rem;
 }
+
+/* Horizontal scrolling channel grid */
 .channel-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
-    gap: 1.5rem;
+    display: flex;
+    overflow-x: auto;
+    gap: 1rem;
+    padding-bottom: 0.5rem;
+    scroll-behavior: smooth;
+    scrollbar-width: none; /* Firefox */
+    -ms-overflow-style: none; /* IE 10+ */
+    -webkit-overflow-scrolling: touch; /* iOS smooth scroll */
 }
+.channel-grid::-webkit-scrollbar {
+    display: none;
+}
+
 .channel-card {
     background-color: var(--card-bg);
     border-radius: 8px;
@@ -45,25 +55,36 @@ main#channel-container {
     text-align: center;
     cursor: pointer;
     transition: background-color 0.3s ease;
+    width: 140px;
+    flex-shrink: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
+
 .channel-card:hover {
     background-color: #3a3a3a;
 }
+
 .channel-card img {
-    width: 100%;
-    height: auto;
+    width: 120px;
+    height: 120px;
     border-radius: 4px;
-    aspect-ratio: 1 / 1;
     object-fit: contain;
     background-color: #3a3a3a;
 }
+
 .channel-card p {
     margin: 0.8rem 0 0;
     font-size: 0.9rem;
     font-weight: 600;
     color: var(--text-primary);
 }
-.error { color: #ff4d4d; }
+
+.error {
+    color: #ff4d4d;
+}
+
 .img-error {
     background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23b3b3b3' stroke-width='2'%3e%3cpath d='M9 18V5l12-2v13'/%3e%3ccircle cx='6' cy='18' r='3'/%3e%3ccircle cx='18' cy='16' r='3'/%3e%3c/svg%3e");
     background-repeat: no-repeat;
@@ -91,7 +112,6 @@ main#channel-container {
     display: flex;
     align-items: center;
     gap: 1rem;
-    /* Prevent info from growing too large */
     min-width: 0;
 }
 
@@ -101,10 +121,9 @@ main#channel-container {
     border-radius: 4px;
     object-fit: contain;
     background-color: #3a3a3a;
-    flex-shrink: 0; /* Prevent image from shrinking */
+    flex-shrink: 0;
 }
 
-/* NEW: Styles for text container */
 #player-text {
     display: flex;
     flex-direction: column;
@@ -120,7 +139,6 @@ main#channel-container {
     text-overflow: ellipsis;
 }
 
-/* NEW: Style for the artist name */
 #player-artist {
     font-size: 0.85rem;
     color: var(--text-secondary);
@@ -137,14 +155,11 @@ main#channel-container {
     text-overflow: ellipsis;
 }
 
-/* Player Controls & Audio Styles remain the same... */
-#player-controls, #play-pause-btn, #audio-player {
-    /* (Existing styles from previous step) */
-}
 #player-controls {
     display: flex;
     align-items: center;
 }
+
 #play-pause-btn {
     background: var(--text-primary);
     color: var(--primary-bg);
@@ -158,13 +173,120 @@ main#channel-container {
     cursor: pointer;
     transition: transform 0.2s ease;
 }
+
 #play-pause-btn:hover {
     transform: scale(1.1);
 }
+
 #play-pause-btn svg {
     width: 24px;
     height: 24px;
 }
+
+#volume-slider {
+    width: 100px;
+    margin-left: 1rem;
+    accent-color: var(--accent-color);
+    cursor: pointer;
+    background: transparent;
+}
+
 #audio-player {
     display: none;
+}
+
+/* Genre tabs container and buttons */
+.genre-tab-wrapper {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0 1.5rem 1rem;
+}
+
+#genre-tabs {
+    display: flex;
+    gap: 0.5rem;
+    padding: 5px 0;
+    overflow-x: auto;
+    border-bottom: 1px solid #333;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+    flex: 1;
+    -webkit-overflow-scrolling: touch;
+}
+
+#genre-tabs::-webkit-scrollbar {
+    display: none;
+}
+
+.genre-tab {
+    background: var(--card-bg);
+    color: var(--text-secondary);
+    border: none;
+    padding: 0.5rem 1rem;
+    font-size: 0.95rem;
+    cursor: pointer;
+    border-radius: 9999px;
+    white-space: nowrap;
+    transition: all 0.2s ease;
+    flex-shrink: 0;
+}
+
+.genre-tab:hover {
+    background-color: #3a3a3a;
+    color: var(--text-primary);
+}
+
+.genre-tab.active {
+    color: var(--primary-bg);
+    background-color: var(--accent-color);
+    font-weight: 600;
+}
+
+/* Genre tab scroll buttons */
+.tab-scroll-btn {
+    background: none;
+    border: none;
+    color: var(--text-secondary);
+    font-size: 1.25rem;
+    cursor: pointer;
+    padding: 0.25rem 0.5rem;
+    transition: color 0.2s ease;
+}
+
+.tab-scroll-btn:hover {
+    color: var(--text-primary);
+}
+
+/* Channel scroll wrapper & scroll buttons */
+.channel-scroll-wrapper {
+    position: relative;
+    display: flex;
+    align-items: center;
+}
+
+.channel-scroll-btn {
+    background: var(--secondary-bg);
+    border: none;
+    color: var(--text-secondary);
+    font-size: 1.25rem;
+    cursor: pointer;
+    padding: 0.25rem 0.75rem;
+    transition: color 0.2s ease;
+    user-select: none;
+    flex-shrink: 0;
+    border-radius: 4px;
+    margin: 0 0.25rem;
+}
+
+.channel-scroll-btn:hover {
+    color: var(--accent-color);
+}
+
+.channel-scroll-btn.left {
+    margin-left: 0;
+}
+
+.channel-scroll-btn.right {
+    margin-right: 0;
 }
