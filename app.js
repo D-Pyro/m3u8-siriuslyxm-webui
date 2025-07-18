@@ -1,4 +1,4 @@
-const BASE_URL = "REPLACE_THIS_WITH_BASE_URL"
+const BASE_URL = "http://127.0.0.1:8888" // This is the default URL. No slash at the end!
 
 document.addEventListener('DOMContentLoaded', () => {
     const METADATA_BASE_URL = `${BASE_URL}/metadata/`;
