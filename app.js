@@ -58,6 +58,21 @@ document.addEventListener('DOMContentLoaded', () => {
 
             playerLogo.src = albumArtUrl ? `${IMAGE_BASE_URL}${base64}` : channel.logo;
             playerLogo.onerror = () => handleImgError(playerLogo);
+
+            if ('mediaSession' in navigator) {
+            navigator.mediaSession.metadata = new MediaMetadata({
+                title: song.name || channel.title,
+                artist: song.artistName || channel.genre,
+                album: channel.title || '',
+                artwork: [
+                    {
+                        src: song.images?.tile?.aspect_1x1?.preferredImage?.url || channel.logo,
+                        sizes: '300x300',
+                        type: 'image/jpeg'
+                    }
+                ]
+            });
+        }
         } else {
             playerTitle.textContent = channel.title;
             playerArtist.textContent = channel.genre;
@@ -66,6 +81,21 @@ document.addEventListener('DOMContentLoaded', () => {
             playerLogo.classList.remove('img-error');
             playerLogo.src = channel.logo;
             playerLogo.onerror = () => handleImgError(playerLogo);
+
+            if ('mediaSession' in navigator) {
+            navigator.mediaSession.metadata = new MediaMetadata({
+                title: channel.title,
+                artist: channel.genre,
+                album: '',
+                artwork: [
+                    {
+                        src: channel.logo,
+                        sizes: '300x300',
+                        type: 'image/jpeg'
+                    }
+                ]
+            });
+        }
         }
     };
 
